@@ -5,17 +5,18 @@ import * as Yup from "yup";
 import style from "./ContactForm.module.css";
 import { useDispatch } from "react-redux";
 import { addContacts } from "../../redux/contactsOps";
+import toast from "react-hot-toast";
 
 // Валидация
 const validationSchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, "Мінімум 3 символи")
-    .max(50, "Максимум 50 символів")
-    .required("Обов'язкове поле"),
+    .min(3, "Too short!")
+    .max(50, "Too long!")
+    .required("Required"),
   phone: Yup.string()
-    .min(3, "Мінімум 3 символи")
-    .max(50, "Максимум 50 символів")
-    .required("Обов'язкове поле"),
+    .min(3, "Too short!")
+    .max(50, "Too long!")
+    .required("Required"),
 });
 
 const ContactForm = () => {
@@ -26,10 +27,16 @@ const ContactForm = () => {
       addContacts({
         id: nanoid(),
         name: values.name,
-        number: values.number,
+        number: values.phone,
       })
-    );
-
+    )
+      .unwrap()
+      .then(() => {
+        toast.success("Contact successfully added!");
+      })
+      .catch((error) => {
+        toast.error("Failed to add contact!");
+      });
     actions.resetForm();
   };
 
@@ -61,7 +68,7 @@ const ContactForm = () => {
             className={style.field}
             type="text"
             name="phone"
-            placeholder="000-00-00"
+            placeholder="000-000-0000"
           />
           <ErrorMessage
             name="phone"

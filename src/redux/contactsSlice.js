@@ -5,25 +5,23 @@ import { selectNameFilter } from "./filtersSlice";
 const slice = createSlice({
   name: "contacts",
   initialState: {
-    contacts: {
-      items: [],
-      loading: false,
-      error: false,
-    },
+    items: [],
+    loading: false,
+    error: false,
   },
 
   extraReducers: (builder) => {
     builder
       .addCase(fetchContacts.pending, (state) => {
-        state.contacts.loading = true;
+        state.loading = true;
       })
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.contacts.items = action.payload;
-        state.contacts.loading = false;
+        state.items = action.payload;
+        state.loading = false;
       })
       .addCase(fetchContacts.rejected, (state, action) => {
-        state.contacts.error = action.payload;
-        state.contacts.loading = false;
+        state.error = action.payload;
+        state.loading = false;
       })
 
       // * добавление контактов
@@ -65,15 +63,6 @@ export default slice.reducer;
 export const selectIsLoading = (state) => state.contacts.loading;
 export const selectError = (state) => state.contacts.error;
 export const selectContacts = (state) => state.contacts.items;
-
-// export const selectFilterContacts = createSelector(
-//   [selectContacts, selectNameFilter],
-//   (contacts, filter) => {
-//     return contacts.filter((contacts) =>
-//       contacts.name.toLowerCase().includes(filter.toLowerCase())
-//     );
-//   }
-// );
 
 export const selectFilterContacts = createSelector(
   [selectContacts, selectNameFilter],

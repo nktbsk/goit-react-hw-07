@@ -35,3 +35,9 @@ button {
   display: block;
   cursor: pointer;
 }
+
+.title {
+  text-align: center;
+  margin: 5px;
+  font-size: 40px;
+}

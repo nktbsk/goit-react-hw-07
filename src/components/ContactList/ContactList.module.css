@@ -1,7 +1,7 @@
 .list {
-  padding-top: 20px;
   display: flex;
   flex-direction: column;
+  padding-top: 20px;
   gap: 8px;
   align-items: center;
   justify-content: center;
