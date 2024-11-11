@@ -14,6 +14,7 @@ const validationSchema = Yup.object().shape({
     .max(50, "Too long!")
     .required("Required"),
   phone: Yup.string()
+    .matches(/^[0-9-]+$/, "Must be only digits")
     .min(3, "Too short!")
     .max(50, "Too long!")
     .required("Required"),
